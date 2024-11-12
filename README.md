@@ -63,7 +63,7 @@ Feedback mask             |  Submitted analyzed feedback
 5. Run the FastAPI app:
 
     ```bash
-    uvicorn main:app --reload
+    uvicorn api.main:app --reload
     ```
 
 6. The backend will be available at `http://localhost:8000`.
