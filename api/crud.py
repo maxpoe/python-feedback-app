@@ -16,13 +16,13 @@ def analyze_sentiment(feedback_text: str) -> str:
        messages= [
            {
             "role": "user",
-            "content": "Analyze the sentiment of this text: \"{feedback_text}\". Respond with either Positive, Neutral, or Negative.",
+            "content": f"Analyze the sentiment of the following text: \"{feedback_text}\". Respond with either Positive, Neutral, or Negative.",
         }
        ],
         model="gpt-3.5-turbo",
     )
-    
     sentiment = response.choices[0].message.content
+
     return sentiment
 
 # Create feedback entry
@@ -35,7 +35,7 @@ def create_feedback(db: Session, feedback_text: str):
     return feedback
 
 # Read all feedback entries
-def get_feedback(db: Session, skip: int = 0, limit: int = 10):
+def get_feedback(db: Session, skip: int = 0, limit: int = 100):
     return db.query(Feedback).offset(skip).limit(limit).all()
 
 # Read single feedback by ID

@@ -41,7 +41,7 @@ def create_feedback(feedback_text: str, db: Session = Depends(get_db)):
 
 # Route to get all feedback with pagination
 @app.get("/feedback/")
-def read_feedback(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+def read_feedback(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return crud.get_feedback(db=db, skip=skip, limit=limit)
 
 # Route to get a single feedback entry by ID

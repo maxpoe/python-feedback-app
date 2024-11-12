@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 
         
-# Replace these with your actual PostgreSQL credentials
+# Replace these with your  PostgreSQL credentials
 DATABASE_URL = "postgresql://feedbackuser:feedback@localhost/feedback_db"
 
 # Set up the database engine

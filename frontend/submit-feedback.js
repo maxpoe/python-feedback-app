@@ -4,11 +4,9 @@ document.getElementById("feedback-form").addEventListener("submit", async functi
     // Get feedback text from textarea
     const feedbackText = document.getElementById("feedback-text").value;
 
-    // Make API request to FastAPI
     const responseMessage = document.getElementById("response-message");
 
     try {
-        // Call the FastAPI backend
         const response = await fetch(`http://localhost:8000/submit-feedback/?feedback_text=${feedbackText}`, {
             method: 'POST',
             headers: {
@@ -22,7 +20,7 @@ document.getElementById("feedback-form").addEventListener("submit", async functi
 
         // Parse the JSON response
         const data = await response.json();
-
+        console.log(data)
         // Display the sentiment
         responseMessage.textContent = `Sentiment: ${data.sentiment}`;
         responseMessage.style.color = data.sentiment === "Positive" ? "green" :
