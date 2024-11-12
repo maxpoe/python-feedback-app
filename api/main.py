@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends, HTTPException
+from starlette.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from .database import engine
 from .db_dependency import get_db
@@ -10,6 +11,15 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+# Allow requests from all origins (can be restricted later)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins (you can specify specific origins here)
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all HTTP methods (GET, POST, PUT, DELETE, OPTIONS, etc.)
+    allow_headers=["*"],  # Allows all headers
+)
+
 # Sample route to test the setup
 @app.get("/")
 def read_root():
@@ -17,9 +27,9 @@ def read_root():
 
 # Additional route example for submitting feedback
 @app.post("/submit-feedback/")
-def submit_feedback(feedback_text: str):
-    # Placeholder response
-    return {"message": "Feedback submitted successfully", "feedback": feedback_text}
+def submit_feedback(feedback_text: str, db: Session = Depends(get_db)):
+    feedback = crud.create_feedback(db=db, feedback_text=feedback_text)
+    return {"message": "Feedback submitted successfully", "feedback": feedback.feedback_text, "sentiment": feedback.sentiment}
 
 
 # Route to create feedback

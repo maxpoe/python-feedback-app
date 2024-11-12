@@ -40,4 +40,24 @@ def get_feedback(db: Session, skip: int = 0, limit: int = 10):
 
 # Read single feedback by ID
 def get_feedback_by_id(db: Session, feedback_id: int):
-    return db.query
+    return db.query(Feedback).filter(Feedback.id == feedback_id).first()
+
+# Update feedback by ID
+def update_feedback(db: Session, feedback_id: int, feedback_text: str):
+    db_feedback = db.query(Feedback).filter(Feedback.id == feedback_id).first()
+    if db_feedback:
+        new_sentiment = analyze_sentiment(feedback_text) 
+        db_feedback.feedback_text = feedback_text
+        db_feedback.sentiment = new_sentiment
+        db.commit()
+        db.refresh(db_feedback)
+    return db_feedback
+
+# Delete feedback by ID
+def delete_feedback(db: Session, feedback_id: int):
+    db_feedback = db.query(Feedback).filter(Feedback.id == feedback_id).first()
+    if db_feedback:
+        db.delete(db_feedback)
+        db.commit()
+        return True
+    return None

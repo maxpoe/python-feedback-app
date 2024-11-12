@@ -9,12 +9,11 @@ document.getElementById("feedback-form").addEventListener("submit", async functi
 
     try {
         // Call the FastAPI backend
-        const response = await fetch('http://localhost:8000/feedback/', {
+        const response = await fetch(`http://localhost:8000/submit-feedback/?feedback_text=${feedbackText}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ text: feedbackText }),
+            }
         });
 
         if (!response.ok) {
