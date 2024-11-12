@@ -23,7 +23,7 @@ app.add_middleware(
 # Sample route to test the setup
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to the Feedback Analysis App"}
+    return {"message": "Welcome to the AI Feedback Analysis App"}
 
 # Additional route example for submitting feedback
 @app.post("/submit-feedback/")
